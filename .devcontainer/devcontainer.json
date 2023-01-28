@@ -1,0 +1,16 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/javascript-node-postgres
+{
+	"name": "T3 and MySQL",
+	"dockerComposeFile": "../docker-compose.workspace.yml",
+	"service": "web",
+	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+	"forwardPorts": [3306, 5555, 8080],
+	"postCreateCommand": "npm ci",
+	"postStartCommand": "npm run prisma:push",
+	"containerEnv": {
+		"NODE_ENV": "development",
+		"PORT": "8080",
+		"DATABASE_URL": "mysql://t3:password@db:3306/t3"
+	}
+}

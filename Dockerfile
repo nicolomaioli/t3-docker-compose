@@ -20,6 +20,13 @@ RUN \
 	else echo "Lockfile not found." && exit 1; \
 	fi
 
+##### DEVCONTAINER
+
+FROM --platform=linux/amd64 ${BASE_IMAGE} AS devcontainer
+
+# Add your packages here
+RUN apk add --no-cache git
+
 ##### BUILDER
 
 FROM --platform=linux/amd64 ${BASE_IMAGE} AS builder
