@@ -1,28 +1,43 @@
-# Create T3 App
+# Create T3 App - Docker Compose example
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with
+`create-t3-app`.
 
-## What's next? How do I make an app with this?
+This example shows how to:
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+- Spin up a `mysql` while running the application with `npm run dev`;
+- Sping up a production build of the application alongside a `mysql` database
+  in a single `docker compose` stack, running locally.
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+The development workflow looks like:
 
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
+```sh
+npm install
 
-## Learn More
+# spin up the mysql database
+npm run compose:up
 
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
+# push db changes
+npm run prisma:push
 
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
+# develop the application locally taking advantage of HMR etc.
+npm run dev
 
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
+# kill the stack
+npm run compose:down
+```
 
-## How do I deploy this?
+To check the production build, either locally or in a CI environment, run:
 
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+```sh
+# spin up a docker-compose stack with both the database and a prod build of the
+# application. Note that this will share the same volume as spinning up the db
+# only, devising a strategy to run migrations or push changes is your
+# responsibility. Also note that this will build the application every time.
+npm run compose:local:up
+
+# visit the application at localhost:8080
+
+# kill the stack
+npm run compose:local:down
+```

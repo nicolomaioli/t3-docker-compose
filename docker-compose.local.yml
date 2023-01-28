@@ -1,0 +1,24 @@
+services:
+  db:
+    extends:
+      file: docker-compose.yml
+      service: db
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - db:/var/lib/mysql
+  web:
+    depends_on:
+      - db
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    working_dir: /app
+    ports:
+      - "8080:8080"
+    image: t3
+    environment:
+      - PORT=8080
+      - DATABASE_URL=mysql://t3:password@db:3306/t3
+
+volumes:
+  db: {}
