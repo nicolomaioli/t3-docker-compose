@@ -6,6 +6,7 @@ This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with
 This example shows how to:
 
 - Spin up a `mysql` while running the application with `npm run dev`;
+- Provides a bare-bones setup for [Visual Studio Code Remote Containers](https://code.visualstudio.com/docs/devcontainers/containers)
 - Sping up a production build of the application alongside a `mysql` database
   in a single `docker compose` stack, running locally.
 
@@ -57,6 +58,8 @@ If you are using Docker Desktop on MacOs or Windows, Apple Silicon, WSL, etc.
 your mileage might vary, however some effort has been put in ensuring
 compatibility with Apple Silicon.
 
+## Develop
+
 The development workflow looks like:
 
 ```sh
@@ -74,6 +77,46 @@ npm run dev
 # kill the stack
 npm run compose:down
 ```
+
+## Visual Studio Code Remote Containers
+
+This is a bare-bones example with the following features and limitations:
+
+- Using the same `Dockerfile` as your production build;
+- Targets the `devcontainer` stage;
+- Runs as `root`:
+  - Adding a non-root user depends in part on your dev environment, see
+  [Add a non-root user to a container](https://code.visualstudio.com/remote/advancedcontainers/add-nonroot-user);
+- Using the same base `docker-compose.yml` as everything else;
+- Does not include any extensions or tools, with `git` offered as an example;
+- Runs `npm ci` and `npm run prisma:push` automatically on startup;
+- Exposes the following ports to localhost:
+  - `3306`: to access MySQL;
+  - `5555`: to access Prisma Studio;
+  - `8080`: to access the application.
+
+Open the repository in Visual Studio Code, install the recommended extension,
+then accept the prompt or `ctrl+Shift+p` (`cmd+Shift+p` on Mac) and run
+`Dev Containers: Rebuild Without Cache and Reopen in Container`.
+
+Workflow:
+
+```sh
+# develop the application
+npm run dev
+
+# visit the application at localhost:8080
+
+# run prisma studio
+npm run prisma:studio
+
+# visit prisma studio at localhost:5555
+
+# push db changes
+npm run prisma:push
+```
+
+## Run production build
 
 To check the production build, either locally or in a CI environment, run:
 
