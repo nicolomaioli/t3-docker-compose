@@ -5,10 +5,12 @@ This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with
 
 This example shows how to:
 
-- Spin up a `mysql` while running the application with `npm run dev`;
-- Provides a bare-bones setup for [Visual Studio Code Remote Containers](https://code.visualstudio.com/docs/devcontainers/containers)
-- Sping up a production build of the application alongside a `mysql` database
-  in a single `docker compose` stack, running locally.
+- Spin up a `mysql` while running the application on the host with
+  `npm run dev`;
+- Provides a bare-bones setup for
+  [Visual Studio Code Remote Containers](https://code.visualstudio.com/docs/devcontainers/containers);
+- Spin up a production build of the application alongside a `mysql` database
+  in a single `docker compose` stack.
 
 Tested on the following environment:
 
