@@ -60,9 +60,9 @@ If you are using Docker Desktop on MacOs or Windows, Apple Silicon, WSL, etc.
 your mileage might vary, however some effort has been put in ensuring
 compatibility with Apple Silicon.
 
-## Develop
+## Develop on host
 
-The development workflow looks like:
+The development workflow with the application running on the host looks like:
 
 ```sh
 npm install
@@ -73,14 +73,16 @@ npm run compose:up
 # push db changes
 npm run prisma:push
 
-# develop the application locally taking advantage of HMR etc.
+# develop the application
 npm run dev
+
+# visit the application at localhost:3000
 
 # kill the stack
 npm run compose:down
 ```
 
-## Visual Studio Code Remote Containers
+## Develop in container with Visual Studio Code Remote Containers
 
 This is a bare-bones example with the following features and limitations:
 
@@ -95,7 +97,8 @@ This is a bare-bones example with the following features and limitations:
 - Exposes the following ports to localhost:
   - `3306`: to access MySQL;
   - `5555`: to access Prisma Studio;
-  - `8080`: to access the application.
+  - `8080`: to access the application;
+- Does not provide support for Docker in Docker.
 
 Open the repository in Visual Studio Code, install the recommended extension,
 then accept the prompt or `ctrl+Shift+p` (`cmd+Shift+p` on Mac) and run
@@ -118,9 +121,9 @@ npm run prisma:studio
 npm run prisma:push
 ```
 
-## Run production build
+## Run the production build
 
-To check the production build, either locally or in a CI environment, run:
+To run the production build, either locally or in a CI environment, do:
 
 ```sh
 # spin up a docker-compose stack with both the database and a prod build of the
